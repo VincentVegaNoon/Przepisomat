@@ -29,7 +29,7 @@ function App() {
       },
     ],
   };
-  const searchRecipes = async (ingredients) => {
+  const searchRecipes = async () => {
     await new Promise((resolve) => setTimeout(resolve, 1000));
 
     setRecipes(MOCK_API_RESPONSE.hits.map((hit) => hit.recipe));
