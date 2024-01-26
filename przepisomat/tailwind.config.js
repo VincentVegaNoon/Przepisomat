@@ -2,7 +2,14 @@
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        medival: ["MedievalSharp", "sans-serif"],
+      },
+      colors: {
+        customGray: "#262626",
+      },
+    },
   },
   plugins: [],
 };

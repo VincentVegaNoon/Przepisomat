@@ -1,6 +1,6 @@
 export function RecipeItem({ recipe }) {
   return (
-    <div>
+    <div className="p-3 text-slate-50 font-medival">
       <h3>{recipe.label}</h3>
       <img src={recipe.image} alt={recipe.label} />
       <p>Ingredients: {recipe.ingredientLines.join(", ")}</p>
