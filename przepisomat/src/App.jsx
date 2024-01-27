@@ -1,39 +1,25 @@
 import { useState } from "react";
 import { IngredientSearchForm } from "./components/IngredientSearch/IngredientSearch";
 import { RecipeList } from "./components/RecipeList/RecipeList";
+import { REACT_SPOONACULAR_API_KEY } from "../APIConfig";
+
 import "./styles.css";
 
 function App() {
   const [recipes, setRecipes] = useState([]);
 
-  const MOCK_API_RESPONSE = {
-    hits: [
-      {
-        recipe: {
-          label: "Chicken Parmesan",
-          image: "url_to_chicken_parmesan_image",
-          ingredientLines: [
-            "4 boneless chicken breast halves",
-            "1/2 cup breadcrumbs",
-            "1/4 cup grated Parmesan cheese",
-          ],
-          url: "url_to_recipe_details",
-        },
-      },
-      {
-        recipe: {
-          label: "Vegetable Stir Fry",
-          image: "url_to_vegetable_stir_fry_image",
-          ingredientLines: ["1 cup broccoli", "1/2 cup bell peppers", "1/4 cup carrots"],
-          url: "url_to_recipe_details",
-        },
-      },
-    ],
-  };
-  const searchRecipes = async () => {
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+  const searchRecipes = async (ingredients) => {
+    console.log(ingredients);
+    const apiKey = REACT_SPOONACULAR_API_KEY;
+    const url = `https://api.spoonacular.com/recipes/findByIngredients?ingredients=${ingredients}&apiKey=${apiKey}`;
 
-    setRecipes(MOCK_API_RESPONSE.hits.map((hit) => hit.recipe));
+    try {
+      const response = await fetch(url);
+      const data = await response.json();
+      setRecipes(data);
+    } catch (error) {
+      console.error("Error fetching recipes:", error);
+    }
   };
 
   return (

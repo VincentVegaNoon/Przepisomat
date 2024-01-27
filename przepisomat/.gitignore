@@ -7,7 +7,7 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-API_KEYS.env
+APIConfig.js
 node_modules
 dist
 dist-ssr
