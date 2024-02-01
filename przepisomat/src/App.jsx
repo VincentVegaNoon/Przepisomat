@@ -2,12 +2,14 @@ import { useState } from "react";
 import { IngredientSearchForm } from "./components/IngredientSearch/IngredientSearch";
 import { RecipeList } from "./components/RecipeList/RecipeList";
 import { REACT_SPOONACULAR_API_KEY } from "../APIConfig";
+import { RecipeDetails } from "./components/RecipeDetails/RecipeDetails";
 
 import "./styles.css";
 
 function App() {
   const apiKey = REACT_SPOONACULAR_API_KEY;
   const [recipes, setRecipes] = useState([]);
+  const [selectedRecipe, setSelectedRecipe] = useState(null);
 
   const searchRecipes = async (ingredients) => {
     console.log(ingredients);
@@ -29,6 +31,7 @@ function App() {
       const response = await fetch(url);
       const details = await response.json();
       console.log(details);
+      setSelectedRecipe(details);
     } catch (error) {
       console.error("Error fetching recipe details:", error);
     }
@@ -38,7 +41,13 @@ function App() {
     <div className="flex flex-col items-center justify-start h-full">
       <h3 className="text-4xl mt-8 text-amber-600 font-medival">PRZEPISOMAT</h3>
       <IngredientSearchForm onSearch={searchRecipes} />
-      <RecipeList recipes={recipes} onDetails={fetchRecipeDetails} />
+      <div>
+        {selectedRecipe ? (
+          <RecipeDetails recipe={selectedRecipe} onBack={() => setSelectedRecipe(null)} />
+        ) : (
+          <RecipeList recipes={recipes} onDetails={fetchRecipeDetails} />
+        )}
+      </div>
     </div>
   );
 }
